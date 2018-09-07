@@ -10,6 +10,7 @@ Estos binarios son construidos con las fuentes de ASF en httpd.apache.org, y con
  
 Allí podremos elegir la versión de 32 o 64 bits en base a la arquitectura que dispongamos. Una vez descarguemos el archivo .zip procedemos a su extracción:
 
+
 a) Unzip file and install folder in C:/Apache24
 b) Play in C:/Apache24/config/httpd.conf
 c) Edit text file and insert the following lines 
