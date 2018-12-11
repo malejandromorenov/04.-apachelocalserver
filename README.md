@@ -35,3 +35,4 @@ There we can choose the 32 or 64 bit version based on the architecture we have. 
 Also:
 
 * Run C:\Apache24\bin\ApacheMonitor.exe for visualizer task
+* And test 'netstat -a -p TCP -n' for verify IPs and port
