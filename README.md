@@ -17,7 +17,8 @@ c) Edit text file and insert the following lines
 - In the line ServerName specific the port -> localhost:80 - To define server port and localhost (127.0.0.1)
 - In the line AllowOverride switch "none" for "All"
 - Save change
-d) Define Apache as a service
+
+* Define Apache as a service
 e) Get in in C:/Apache24/bin 
 f) Run httpd -k install
 g) Test installation, create a new file in C:/Apache24/htdocs with the next lines
