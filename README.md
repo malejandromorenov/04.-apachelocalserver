@@ -32,6 +32,8 @@ There we can choose the 32 or 64 bit version based on the architecture we have. 
 -----
 
 * Reset you computer and run test http://localhost/index.html
+or
+127.0.0.1:80 and localhost
 
 Also:
 
