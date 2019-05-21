@@ -112,3 +112,64 @@ Reload Apache.
 ```cmd
 sudo systemctl reload apache2
 ```
+
+# Nginx
+Create a new site configuration for Matomo in the /etc/nginx/sites-available directory. Open that file. Everything here is completely standard for a PHP configuration. Create a new server block for your analytics site. It should look similar to this one. 
+
+```notes
+server {
+	listen 80;
+	listen [::]:80;
+	server_name analytics.your_site.com;
+
+	index index.php;
+	root /var/www/piwik;
+
+	access_log /var/log/nginx/analytics.your-site.com.access_log;
+	error_log /var/log/nginx/analytics.your-site.com.error_log;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+	}
+}
+```
+
+If you're using SSL(like Matomo recommends), include that and the 301 redirect as well. Don't forget to link your site configuration and restart Nginx. 
+
+```cmd
+sudo ln -s /etc/nginx/sites-available/matomo /etc/nginx/sites-enabled/matomo
+sudo systemctl restart nginx
+```
+
+# Matomo Setup
+Now that you have your web server and database configured, you can start to set up Matomo with it's web based installer. Navigate to the address where you configured your server to host Matomo. 
+
+Ubuntu Bionic Begin Matmomo Install
+The first screen will welcome you to Matomo and prompt you to begin the install process. After that, Matomo will perform a full system check for its requirements. This should be fine, since you installed them at the beginning of the process. 
+
+Ubuntu Bionic Matomo System Check
+
+
+Ubuntu Bionic Matomo Database Setup
+Next, Matomo will ask you to connect to the database. Enter the information that you used to set up your database earlier. It will take a couple of seconds to connect and tell you when it has done so successfully. 
+
+Ubuntu Bionic Create Matomo Superuser
+
+ 
+Then, you'll be asked to create a superuser account. This is the main account that you'll use to manage everything on the platform. 
+
+Ubuntu Bionic Matomo Website Setup
+After your superuser, Matomo will ask to set up a website. This will add a site to the roster that Matomo will monitor and provide analytic data for. It will use the information that you provide to generate JavaScript tracking code. 
+
+Ubuntu Bionic JavaScript Tracking Code
+Matomo will give you a block of JavaScript to insert into your site. Paste the code into your website's source in a place that will appear on every page. When you're done inserting the JavaScript into your site, you can click through the rest of the setup. Matomo will congratulate you on completing it when you're done. 
+
+Ubuntu Bionic Matomo Dashboard
+It'll then send you to the login screen. Use the account that you created for yourself to sign in. When you do, you'll get a message that Matomo hasn't collected any data yet. That's fine. You just set it up. Tell Matomo not to show the message again for the next hour, and you can progress through to your dashboard. Matomo is running successfully on your server!
+Closing Thoughts
+Explore the Matomo dashboard. It provides you with loads of different options. It records a lot of useful information and organizes it for you in about as many ways as you're ever going to need. You can generate additional JavaScript code for additional sites too. Matomo is more than capable of monitoring multiple websites at once. So, once you've set up Matomo once, you have your own self hosted analytics service for as many websites as you need.
