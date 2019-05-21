@@ -24,12 +24,12 @@ There we can choose the 32 or 64 bit version based on the architecture we have. 
 * Run httpd -k install
 * Test installation, create a new file in C:/Apache24/htdocs with the next lines
 
------
+_______________________________________
 <html>
 <head><title>testing Apache</title></head>
 <body><p>¡Apache está trabajando!</p></body>
 </html>
------
+_______________________________________
 
 * Reset you computer and run test http://localhost/index.html
 or
@@ -38,7 +38,11 @@ or
 Also:
 
 * Run C:\Apache24\bin\ApacheMonitor.exe for visualizer task
-* And test 'netstat -a -p TCP -n' for verify IPs and port
+* And test 
+```cmd
+netstat -a -p TCP -n 
+```
+for verify IPs and port
 
 
 # Update May 2019
@@ -92,6 +96,7 @@ sudo chown -R www-data:www-data /var/www/piwik
 Your web server configuration is going to depend on whether you're using Apache or Nginx. Either one will assume that you're going to host on a server with more than one site using virtual hosts.
 Apache
 You're going to need to create a new virtual host for your site. Start by copying either the default configuration or a previous configuration to modify to host Matomo.
+
 ```cmd
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/matomo.conf
 ```
