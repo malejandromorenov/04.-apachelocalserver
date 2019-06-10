@@ -1,6 +1,7 @@
 # Apache Server
 _______
 
+# Microsoft
 Downloads Links
 https://www.apachelounge.com/download/
 
@@ -44,10 +45,127 @@ netstat -a -p TCP -n
 ```
 for verify IPs and port
 
+# Debian
 
 # Update May 2019
 In other situation over one instance the software install. Up install Matomo, software can read the host local and remote.
 Steps.
+1.- Install Apache Server
+2.- Install MySQL Server
+3.- Configure the installation
+
+## Installing Apache
+Apache is available within Debian's default software repositories, making it possible to install it using conventional package management tools.
+
+Let's begin by updating the local package index to reflect the latest upstream changes:
+```sh
+sudo apt update
+```
+Then, install the apache2 package:
+```sh
+sudo apt install apache2
+```
+After confirming the installation, apt will install Apache and all required dependencies.
+
+Before testing Apache, it's necessary to modify the firewall settings to allow outside access to the default web ports. Assuming that you followed the instructions in the prerequisites, you should have a UFW firewall configured to restrict access to your server.
+
+During installation, Apache registers itself with UFW to provide a few application profiles that can be used to enable or disable access to Apache through the firewall.
+
+List the ufw application profiles by typing:
+```sh
+sudo ufw app list
+```
+You will see a list of the application profiles:
+```sh
+Output
+Available applications:
+  AIM
+  Bonjour
+  CIFS
+. . . 
+ WWW
+ WWW Cache
+ WWW Full
+ WWW Secure
+. . . 
+```
+The Apache profiles begin with WWW:
+
+WWW: This profile opens only port 80 (normal, unencrypted web traffic)
+WWW Cache: This profile opens only port 8080 (sometimes used for caching and web proxies)
+WWW Full: This profile opens both port 80 (normal, unencrypted web traffic) and port 443 (TLS/SSL encrypted traffic)
+WWW Secure: This profile opens only port 443 (TLS/SSL encrypted traffic)
+It is recommended that you enable the most restrictive profile that will still allow the traffic you've configured. Since we haven't configured SSL for our server yet in this guide, we will only need to allow traffic on port 80:
+```sh
+sudo ufw allow 'WWW'
+```
+You can verify the change by typing:
+```sh
+sudo ufw status
+```
+You should see HTTP traffic allowed in the displayed output:
+```sh
+Output
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+WWW                        ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+WWW (v6)                   ALLOW       Anywhere (v6)
+```
+As you can see, the profile has been activated to allow access to the web server.
+
+At the end of the installation process, Debian 9 starts Apache. The web server should already be up and running.
+
+Check with the systemd init system to make sure the service is running by typing:
+```sh
+sudo systemctl status apache2
+```
+Output
+```sh
+● apache2.service - The Apache HTTP Server
+   Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+   Active: active (running) since Wed 2018-09-05 19:21:48 UTC; 13min ago
+ Main PID: 12849 (apache2)
+   CGroup: /system.slice/apache2.service
+           ├─12849 /usr/sbin/apache2 -k start
+           ├─12850 /usr/sbin/apache2 -k start
+           └─12852 /usr/sbin/apache2 -k start
+
+Sep 05 19:21:48 apache systemd[1]: Starting The Apache HTTP Server...
+Sep 05 19:21:48 apache systemd[1]: Started The Apache HTTP Server.
+```
+
+As you can see from this output, the service appears to have started successfully. However, the best way to test this is to request a page from Apache.
+
+You can access the default Apache landing page to confirm that the software is running properly through your IP address. If you do not know your server's IP address, you can get it a few different ways from the command line.
+
+Try typing this at your server's command prompt:
+```sh
+hostname -I
+```
+You will get back a few addresses separated by spaces. You can try each in your web browser to see if they work.
+
+An alternative is using the curl tool, which should give you your public IP address as seen from another location on the internet.
+
+First, install curl using apt:
+```sh
+sudo apt install curl
+```
+Then, use curl to retrieve icanhazip.com using IPv4:
+```sh
+curl -4 icanhazip.com
+```
+When you have your server's IP address, enter it into your browser's address bar:
+
+http://your_server_ip
+You should see the default Debian 9 Apache web page:
+
+Apache default page
+
+This page indicates that Apache is working correctly. It also includes some basic information about important Apache files and directory locations.
 
 #### Install the PHP Packages
 Sure, you'll be basing this on either a standard LAMP or LEMP stack, but Matomo is a fairly large application with its own requirements. Before you get started, install these PHP dependencies.
