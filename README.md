@@ -161,9 +161,12 @@ curl -4 icanhazip.com
 When you have your server's IP address, enter it into your browser's address bar:
 
 http://your_server_ip
+
+![Apache default page](https://github.com/malejandromorenov/apache-local-server/blob/master/small_apache_default_debian9.png)
+
 You should see the default Debian 9 Apache web page:
 
-Apache default page
+
 
 This page indicates that Apache is working correctly. It also includes some basic information about important Apache files and directory locations.
 
