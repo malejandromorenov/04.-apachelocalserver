@@ -166,9 +166,47 @@ http://your_server_ip
 
 You should see the default Debian 9 Apache web page:
 
-
-
 This page indicates that Apache is working correctly. It also includes some basic information about important Apache files and directory locations.
+
+# MySQL Server
+
+Step 1 – Prerequisites
+Login to your Debian 9 system using shell access. For remote systems connect with SSH. Windows users can use Putty or other alternatives applications for SSH connection.
+
+ssh root@debian9
+Run below commands to upgrade the current packages to the latest version.
+
+sudo apt update 
+sudo apt upgrade
+Step 2 – Configure MySQL PPA
+MySQL team provides official MySQL PPA for Debian Linux. You can download and install the package on your Debian system, which will add PPA file to your system. Run below command to enable PPA.
+
+wget http://repo.mysql.com/mysql-apt-config_0.8.9-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb
+During installation of MySQL apt config package, It will prompt to select MySQL version to install. Select the MySQL 5.7 or 5.6 option to install on your system.
+
+Install MySQL on Debian 9 Stretch
+
+Step 3 – Install MySQL on Debian 9
+Your system is ready for the MySQL installation. Run the following commands to install MySQL on a Debian machine.
+
+sudo apt update 
+sudo apt install mysql-server
+The installation process will prompt for the root password to set as default. Input a secure password and same to confirm password window. This will be MySQL root user password required to log in to MySQL server.
+
+Install MySQL on Debian 9
+
+Install MySQL on Debian Stretch
+
+Step 4 – Secure MySQL Installation
+Execute the below command on your system to make security changes on your Database server. This will prompt some questions. The do the high security provide all answers to yes.
+
+First start the MysQL service if not started:
+
+sudo systemctl restart mysql
+Then run below command:
+
+sudo mysql_secure_installation
 
 #### Install the PHP Packages
 Sure, you'll be basing this on either a standard LAMP or LEMP stack, but Matomo is a fairly large application with its own requirements. Before you get started, install these PHP dependencies.
