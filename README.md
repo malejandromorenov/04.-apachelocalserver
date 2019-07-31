@@ -43,7 +43,9 @@ Also:
 ```cmd
 netstat -a -p TCP -n 
 ```
-for verify IPs and port
+for verify IPs and ports.
+
+____________________________________________________
 
 # Debian
 
