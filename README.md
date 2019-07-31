@@ -26,10 +26,12 @@ There we can choose the 32 or 64 bit version based on the architecture we have. 
 * Test installation, create a new file in C:/Apache24/htdocs with the next lines
 
 _______________________________________
+```notepad
 <html>
 <head><title>testing Apache</title></head>
 <body><p>¡Apache está trabajando!</p></body>
 </html>
+```
 _______________________________________
 
 * Reset you computer and run test http://localhost/index.html
